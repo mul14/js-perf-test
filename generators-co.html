@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Generate Primes using Generators</title>
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/co/4.1.0/index.min.js"></script>
+  <script type="module">
+    import arrayRange from './libs/arrayRange.mjs'
+    import isPrime from './libs/isPrime.mjs'
+
+    console.time()
+    const numbers = arrayRange(0, 5000000)
+
+    function* generatePrimes() {
+      const primes = []
+      for (const n of numbers) {
+        if (isPrime(n)) {
+          primes.push(n)
+        }
+      }
+      const result = yield Promise.resolve(primes)
+      return result
+    }
+
+    co(generatePrimes())
+      .then(result => {
+        // console.log(result)
+      })
+      .catch(e => {
+        // console.log(e)
+      })
+    console.timeEnd()
+
+  </script>
+</body>
+
+</html>

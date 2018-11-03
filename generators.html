@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Generate Primes using Generators</title>
+</head>
+
+<body>
+  <script type="module">
+    import arrayRange from './libs/arrayRange.mjs'
+    import isPrime from './libs/isPrime.mjs'
+
+    console.time()
+    const numbers = arrayRange(200, 5000000)
+
+    function* generatePrimes() {
+      for (const n of numbers) {
+        if (isPrime(n)) {
+          yield n
+        }
+      }
+    }
+
+    const primes = generatePrimes()
+    while (primes.next().done === false) {
+      //
+    }
+
+    console.timeEnd()
+
+  </script>
+</body>
+
+</html>
